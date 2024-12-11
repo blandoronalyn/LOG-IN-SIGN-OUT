@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login </title>
+</head>
+<body>
+
+    
+    <div id="signup-form">
+        <h2>Sign Up</h2>
+        <label for="signup-username">Username:</label>
+        <input type="text" id="signup-username" placeholder="Enter your username">
+        <br>
+        <label for="signup-password">Password:</label>
+        <input type="password" id="signup-password" placeholder="Enter your password">
+        <br>
+        <button onclick="signUp()">Sign Up</button>
+    </div>
+
+   
+    <div id="login-form" style="display:none;">
+        <h2>Login</h2>
+        <label for="login-username">Username:</label>
+        <input type="text" id="login-username" placeholder="Enter your username">
+        <br>
+        <label for="login-password">Password:</label>
+        <input type="password" id="login-password" placeholder="Enter your password">
+        <br>
+        <button onclick="login()">Login</button>
+    </div>
+
+  
+    <div id="welcome-message" style="display:none;">
+        <h3>Welcome, <span id="user-name"></span>!</h3>
+        <button onclick="logout()">Log Out</button>
+    </div>
+
+    <script>
+        let users = [];
+
+        function signUp() {
+            var username = document.getElementById('signup-username').value;
+            var password = document.getElementById('signup-password').value;
+
+            for (let user of users) {
+                if (user.username === username) {
+                    alert('Username already taken!');
+                    return;
+                }
+            }
+
+            
+            users.push({ username: username, password: password });
+            alert('Sign up successful! Please log in.');
+
+        
+            document.getElementById('signup-form').style.display = 'none';
+            document.getElementById('login-form').style.display = 'block';
+        }
+
+     
+        function login() {
+            var username = document.getElementById('login-username').value;
+            var password = document.getElementById('login-password').value;
+
+           
+            for (let user of users) {
+                if (user.username === username && user.password === password) {
+                    document.getElementById('login-form').style.display = 'none'; // Hide login form
+                    document.getElementById('welcome-message').style.display = 'block'; // Show welcome message
+                    document.getElementById('user-name').textContent = username; // Display username
+                    return;
+                }
+            }
+
+            alert('Invalid username or password');
+        }
+
+       
+        function logout() {
+            document.getElementById('welcome-message').style.display = 'none'; 
+            document.getElementById('login-form').style.display = 'block';
+            document.getElementById('login-username').value = ''; 
+            document.getElementById('login-password').value = ''; 
+        }
+    </script>
+
+</body>
+</html>
